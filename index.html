@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FELIZ ANIVERSÁRIO JUJU</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;700&display=swap');
+
+    * {
+      font-family: 'Cormorant Garamond', serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Fundo de corações animados */
+    #heart-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: red;
+      transform: rotate(45deg);
+      animation: floatUp 4s ease-in forwards, pop 4s ease-out forwards;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: red;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  70% {
+    transform: translateY(-70vh) scale(1.5);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-100vh) scale(2);
+    opacity: 0;
+  }
+}
+
+
+    @keyframes pop {
+      95% { transform: scale(2); opacity: 0.5; }
+      100% { transform: scale(0); opacity: 0; }
+    }
+
+    .book {
+      position: relative;
+      width: 300px;
+      height: 400px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    }
+
+    .book-page {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: white;
+      padding: 30px;
+      box-sizing: border-box;
+      display: none;
+    }
+
+    .book-cover {
+      background: url('Imagens/ANIVERSÀRIO.jpeg') center/cover no-repeat;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transform: rotateY(0deg);
+      z-index: 10;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+      position: relative;
+    }
+
+    .page-content {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .bookmark {
+      position: absolute;
+      top: 50%;
+      right: -8px;
+      width: 8px;
+      height: 50px;
+      background: red;
+    }
+
+    .dedicatoria {
+      position: absolute;
+      bottom: 10px;
+      font-size: 0.9rem;
+      color: white;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+  <div id="heart-container"></div>
+
+  <div class="book-container">
+    <div class="book relative mx-auto shadow transition-all duration-300">
+      <!-- Capa do livro -->
+      <div class="book-page book-cover absolute rounded-tl-[3px] rounded-bl-[3px]">
+        <h1 class="text-3xl font-bold mb-10">18 anos do Bebê</h1>
+        <p class="italic">Uma pequena história de amor</p>
+        <div class="mt-6 animate-pulse">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-yellow-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13..." />
+          </svg>
+        </div>
+        <p class="italic dedicatoria">PARA: Júlia Macêdo</p>
+      </div>
+    </div>
+
+    <!-- Controles -->
+    <div class="text-center mt-8">
+      <div class="flex justify-center space-x-4 mt-4">
+        <button id="openBook" class="px-6 py-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition">Abrir Livro</button>
+        <button id="prevPage" class="px-6 py-3 bg-gray-600 text-white rounded-lg shadow-md hover:bg-gray-700 transition">Anterior</button>
+        <button id="nextPage" class="px-6 py-3 bg-gray-600 text-white rounded-lg shadow-md hover:bg-gray-700 transition">Próxima</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  const book = document.querySelector('.book');
+  const totalPages = 50;
+
+  // Array com o conteúdo de cada página (você pode editar cada linha)
+  const conteudosDasPaginas = [
+    "Início dizendo o quão sou grato, por poder compartilhar mais um momento da sua vida com você. Viver isso é sensacional e ter você sorrindo para mim em muitos dias da minha vida, é muito especial. Incrível ver como você não mudou tanto, e não digo isso para você sentir vergonha, e sim se orgulhar do quanto o seu sorriso e seu olhar encantam, igual o de um neném e o seu nunca deixou de ser assim.",
+    "Fazer parte desse novo momento, ou melhor, dessa nova fase, é incrível. Te ver crescer e almejar coisas novas é algo único, ver você se orgulhando de suas notas na faculdade, chega até ser engraçado. Toda vez eu paro e penso que meu bebe cresceu. Bom, isso é estranho, por que geralmente são os pais que pensam isso, mas acredito que não são só os pais que pensam assim, por que eu também penso.",
+    "Isso, está muito mais relacionado, na intensidade do AMOR, pois para mim é sem palavras estar aqui, presenciando sua evolução, é dívino ter você ao meu lado e ver você crescendo, me orgulho muito de estar até aqui com você e espero que não termine logo, quero que isso seja durante toda a eternidade.",
+    "Lembro até hoje, como foi te conhecer, algo me dizia que era e sempre seria você. Por mais que não acredite, olhar os seus olhos me fazia enxergar o futuro, sentir o seu carinho, o seu abraço, era uma sensação estranha, pois nunca havia sentido aquilo. Sentia que estava sendo salvo, pois seu amor por mim me encantava.",
+    "Sei que naquele começo, quando ficamos abraçados no chão da cozinha, talvez ainda não fosse o amor que sentimentos hoje um pelo outro, mas eu tinha certeza que eu tinha encontrado o meu eterno AMOR. Estranho dizer isso hoje, pois antes de você, eu não entendia o que era eternidade, e talvez nem acreditasse nisso tanto, mas como eu disse, você estava me salvando.",
+    "Entendi o que era eternidade, quando te encontrei, quando pra mim já não fazia mais sentido querer partir cedo, entendi o que era eternidade, quando o meu desejo era te ter para sempre, mas calma, esse pra sempre, nunca acaba. Pois hoje eu aprendi o que é a eternidade, que pra mim também é o pra sempre. Então com toda certeza, te quero durante toda a ETERNIDADE ou PARA TODO O SEMPRE.",
+    "Conhecer a eternidade não tem preço, e almejar ela junto com você também não tem coisa igual. Eu sempre fui uma pessoa que gostava do PARA SEMPRE, mas aqueles sim acabavam. Porém quando te conheci, tudo isso mudou, o PARA SEMPRE, mudou de nome e de sentido, hoje almejo a eternidade e junto o selamento com o meu eterno amor, a JUJU.",
+    "Amor, que história íncrivel que contruímos e ainda estamos trilhando, acho que se eu contasse para o meu eu do começo de 2023, ele nunca acreditaria, que teríamos encontrado você, sempre estívemos tão perto, durante todo o tempo, mas só no momento exato nos encontramos, e ainda vão dizer que os planos do Pai Celestial, não são íncriveis. ",
+    "Sei que tenho que agradecer muito à ELE, por ter colocado você em meu caminho. Juju, como eu sempre digo para muitas pessoas, eu te encontrei na hora certa, você com toda a sua felicidade e com o todo seu amor me encantou, aqueles nossos momentos de risadas, companheirimos, carinho e brincadeira, me salvou. Eu nunca imaginei que amaria tanto você.",
+    "Nossas madrugadas virados no frio, as vezes até na chuva, me mostraram o que é amar alguém e ser amado. Eu não mudaria nada dessa época, e se eu pudesse reviver ela todos os anos da minha vida, seria muito bom, mas dessa vez queria ter a certeza que eu sempre te encontraria e que você seria minha para sempre. (Só tiraria a Amanda dessa história kkk).",
+    "Ainda bem, que você vive comigo. Porque senão. Como seria esta vida ? Sei lá, Sei lá.",
+    "Essa música marca muito o que somos ao meu olhar, eu não sei o que eu seria hoje em dia, se você não vivesse comigo. Hoje em dia, não estaria tão perto do Senhor e não teria o seu sorriso e seu amor, para me guiarem todos os dias. Não teria, suas palavras de coragem, me incentivando para ser alguém mais forte, não teria seu abraço quente, para me guardar quando os dias estão difíceis.",
+    "Realmente eu não consigo nem pensar como estaria, talvez tivesse progredido em algumas coisas, mas nada faria sentido sem você. Qualquer conquista é melhor com você, pois sei que quando eu for te contar, você vai estar toda animada e qualquer tristeza é melhor com você, pois tem seu colo para eu deitar e sua risada para me distrair de todo o mal que tem nesse mundo.",
+    "Você é o ínicio de tudo, dentre todas as coisas que eu posso conquistar na vida, você é a mais importante, pois é a única que fica para sempre, a única que vou construir coisas juntos e a única que vou me casar. Pensar nisso é deslumbrante, saber que te verei de branco no altar, saber que teremos uma família e ainda melhor na única Igreja de Jesus aqui na Terra.",
+    "Que sorte temos de poder passar por tudo isso, que sorte temos de estarmos juntos e nos ajudando sempre. Quero te pedir para que nunca solte a minha mão, sei que as vezes sou muito falho e acabo te entristecendo, mas Eu te amo.",
+    "Quando eu te vi passar, eu fiquei paralisado, tremi até o chão como um terremoto no Japão, um vento um tufão, uma batedeira sem botão. Foi assim viu ? Me vi na sua mão.",
+    "Ouvir essa parte da música, não me faz pensar em outro momento, sem ser aquele quando te vi a primeira vez, que coisa linda, ver aqueles cachos balançando enquanto você andava e desde lá já sabia que seriamos um só.",
+    "Nos encontramos, nos conhecemos e de pouco em pouco fomos contruimos o que temos hoje. Se não pararmos, chegaremos aonde eu mais quero, que é no nosso casamento e lá relembrarei de quando eu tinha apenas 20 anos e estava escrevendo um livro besta para você.",
+    "E finalizarei dizendo SIM, para ai sim concretizarmos o nosso amor eterno.",
+    "Sonho muito com esse momento, e toda vez que entramos na igreja juntos, me remete a essas coisas e eu nem sei dizer o por que. Só sei que pensar no futuro com você é tão bom. Te ver de vestido nos domingos, me traz uma felicidade grande, você fica tão linda e mesmo sabendo que não serão nenhum desses vestidos que você vai usar, me dá medo, por que vai estar linda em um nível que eu não conseguirei me aproximar.",
+    "Hoje é seu dia, é estranho que para as pessoas só hoje é uma celebração você, eu não apoio muito, pois acho que você merecia isso todos os dias, mas calma, não ficar mais velha todos os dias, mas sim ser feliz e contente consigo mesma e tendo pessoas que te amam ao seu redor.",
+    "Você merece ser lembrada e adora sempre, você merecer ser amada e muito bem cuidada, pois é algo muito precioso para mim, um tesouro que apenas eu tenho e cuido e guardo com muito carinho a jóia que tenho.",
+    "Neném completa 18, mas com a carinha e o jeitinho de neném de ser, é bonito ver como você tem uma criança dentro de você, isso é para poucos, uma prova que você sempre vence as coisas ruins do mundo que vem para nos desanimar, você realmente é um dádiva.",
+    "Obrigado por me escolher e proporcionar esses momentos incríveis que tenho hoje em minha vida, graças a cor que você trouxe para ela.",
+    "Obrigado por suas risadas e por todo o seu amor.",
+    "Obrigado por ser quem é, obrigado por ser verdadeira e chata nos momentos em que eu preciso ouvir. Evoluir é o que eu mais quero e você tem me ajudado nisso, ser feliz ao seu lado é o que eu já sou e zelo para ter isso por todo o tempo do mundo.",
+    "Te amo por tudo o que é, e por tudo o que somos juntos.",
+    "Cada capítulo nosso é uma história que vale ser contada.",
+    "Você faz minha vida ter sentido e direção.",
+    "Nesse mundo, de tantos anos, entre tantos outros. Que sorte a minha te encontrar.",
+    "Você é minha poesia em meio ao caos.",
+    "Sou grato por cada riso compartilhado com você.",
+    "Quero envelhecer do seu lado, escrevendo novas páginas todos os dias e talvez até novos livros como esse, imagina ? kkk",
+    "Você é o presente mais bonito que a vida me deu.",
+    "Cuidar de você é meu maior prazer.",
+    "Seu carinho é meu abrigo favorito.",
+    "Espero que este livro reflita o que você significa para mim e que você sempre lembrar dele com carinho. Sei que é algo besta, mas foi só mais um jeito que inventei de te demonstrar amor e te mostrar o quanto é especial para mim.",
+    "Esse improviso para demonstrar amor, é algo que nunca vai faltar, pois existem muitas formas de fazer e de dizer o quanto te amo, não me faltam palavras e nem energia para fazer, para mim é um sonho te amar.",
+    "Esse livro é só uma pequena parte do quanto você é especial, quero que você lembre de mim independente da sua situação ou de onde eu estiver. Quero que pra sempre lembre do bobão que eu sou, mas que sempre se esforçou para te mostrar o que você merece e a mulher que é. Quero que saiba que para sempre vou te amar, independente de tudo, sempre estarei ao seu lado, te acompanhando, te protegente e te desejando.",
+    "Obrigado por ser o capítulo mais lindo da minha historia, ou melhor a minha história toda, pois você que começou e irá terminar tudo, quer dizer nunca terminará, pois estaremos juntos na eternidade.",
+    "Eu te amo minha tiquitica, feliz aniversário, parabéns pelos seus 18 anos sendo uma diva babilonica.",
+    "TEM MAIS NADAAAAAA, ESSA MERDA GEROU PÁGINAS A MAIS",
+    "TEM MAIS NADAAAAAA, ESSA MERDA GEROU PÁGINAS A MAIS",
+    "TEM MAIS NADAAAAAA, ESSA MERDA GEROU PÁGINAS A MAIS",
+    "TEM MAIS NADAAAAAA, ESSA MERDA GEROU PÁGINAS A MAIS",
+    "TEM MAIS NADAAAAAA, ESSA MERDA GEROU PÁGINAS A MAIS",
+    "TEM MAIS NADAAAAAA, ESSA MERDA GEROU PÁGINAS A MAIS",
+    "TEM MAIS NADAAAAAA, ESSA MERDA GEROU PÁGINAS A MAIS",
+    "TEM MAIS NADAAAAAA, ESSA MERDA GEROU PÁGINAS A MAIS",
+    "FIMMMMMMMMMMMMMMMMMMMMM",
+
+  ];
+
+  // Cria cada página com seu conteúdo correspondente
+  for (let i = 1; i <= totalPages; i++) {
+    const page = document.createElement('div');
+    page.className = `book-page page${i} absolute bg-amber-50 rounded-tr-[3px] rounded-br-[3px]`;
+    page.innerHTML = `
+      <div class="page-content">
+        <h2 class="text-2xl font-bold mb-4 border-b pb-2">Página ${i}</h2>
+        <p>${conteudosDasPaginas[i - 1] || "Página em branco."}</p>
+      </div>
+    `;
+    book.appendChild(page);
+  }
+
+  const pages = document.querySelectorAll('.book-page:not(.book-cover)');
+  const openBtn = document.getElementById('openBook');
+  const prevBtn = document.getElementById('prevPage');
+  const nextBtn = document.getElementById('nextPage');
+  let currentPage = 0;
+
+  function showPage(index) {
+    pages.forEach((page, i) => {
+      page.style.display = i === index ? 'block' : 'none';
+    });
+  }
+
+  openBtn.addEventListener('click', () => {
+    document.querySelector('.book-cover').style.display = 'none';
+    currentPage = 0;
+    showPage(currentPage);
+  });
+
+  prevBtn.addEventListener('click', () => {
+    if (currentPage > 0) {
+      currentPage--;
+      showPage(currentPage);
+    }
+  });
+
+  nextBtn.addEventListener('click', () => {
+    if (currentPage < pages.length - 1) {
+      currentPage++;
+      showPage(currentPage);
+    }
+  });
+
+  // Exibir somente a capa no início
+  pages.forEach(p => p.style.display = 'none');
+
+    // Corações animados
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.top = '100%';
+      document.getElementById('heart-container').appendChild(heart);
+
+      setTimeout(() => heart.remove(), 4000);
+    }
+
+    setInterval(createHeart, 300);
+  </script>
+</body>
+</html>
